@@ -4,7 +4,8 @@ from PIL import Image, ImageTk
 import requests
 from io import BytesIO
 
-ALLOWED_TAGS = ['sleep', 'jump', 'smile', 'fight', 'black', 'white', 'red', 'siamese', 'bengal']
+ALLOWED_TAGS = ['sleep', 'crazy', 'cute', 'babycat', 'strange', 'jump', 'smile', 'fight',
+                'black', 'white', 'red', 'siamese', 'bengal']
 
 
 def load_image(url):
@@ -57,19 +58,19 @@ file_menu.add_command(label="Выход", command=exit)
 
 
 tag_label = Label(text="Выберите тег")
-tag_label.pack()
+tag_label.pack(pady=10)
 
 tag_combobox = ttk.Combobox(values=ALLOWED_TAGS)
 tag_combobox.pack()
 
 update_button1 = Button(text="Обновить котика по тегу", command=open_tagged_cat)
-update_button1.pack()
+update_button1.pack(pady=10)
 
 button_random_cat = Button(window, text="Случайный котик", command=open_random_cat)
 button_random_cat.pack(pady=10)
 
 update_button = Button(text="Обновить случайного котика", command=open_random_cat)
-update_button.pack()
+update_button.pack(pady=10)
 
 
 window.mainloop()
