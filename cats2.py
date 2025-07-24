@@ -1,7 +1,11 @@
 from tkinter import *
+from tkinter import ttk
 from PIL import Image, ImageTk
 import requests
 from io import BytesIO
+
+ALLOWED_TAGS = ['sleep', 'jump', 'smile', 'fight', 'black', 'white', 'red', 'siamese', 'bengal']
+
 
 def load_image(url):
     try:
@@ -17,7 +21,7 @@ def load_image(url):
 
 
 def open_new_window():
-    tag = tag_entry.get()
+    tag = tag_combobox.get()
     url_with_tag = f'https://cataas.com/cat/{tag}' if tag else 'https://cataas.com/cat'
     img = load_image(url_with_tag)
 
@@ -41,13 +45,6 @@ window.geometry("600x520")
 label = Label()
 label.pack()
 
-tag_entry = Entry()
-tag_entry.pack()
-
-
-load_button = Button(text="Загрузить по тегу", command=open_new_window)
-load_button.pack()
-
 
 menu_bar = Menu(window)
 window.config(menu=menu_bar)
@@ -60,10 +57,15 @@ file_menu.add_command(label="Выход", command=exit)
 
 
 url = 'https://cataas.com/cat'
-img = load_image(url)
 
-if img:
-    label.config(image=img)
-    label.image = img
+tag_label = Label(text="Выбери тег")
+tag_label.pack()
+
+tag_combobox = ttk.Combobox(values=ALLOWED_TAGS)
+tag_combobox.pack()
+
+load_button = Button(text="Загрузить по тегу", command=open_new_window)
+load_button.pack()
+
 
 window.mainloop()
