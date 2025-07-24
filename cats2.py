@@ -14,6 +14,13 @@ def load_image(url):
         print(f"Ошибка при загрузке изображения: {e}")
         return None
 
+def set_image():
+    img = load_image(url)
+
+    if img:
+        label.config(image=img)
+        label.image = img
+
 
 window = Tk()
 window.title("Cats!")
