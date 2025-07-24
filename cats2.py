@@ -19,32 +19,28 @@ def load_image(url):
         print(f"Ошибка при загрузке изображения: {e}")
         return None
 
-
-def open_new_window():
-    tag = tag_combobox.get()
-    url_with_tag = f'https://cataas.com/cat/{tag}' if tag else 'https://cataas.com/cat'
-    img = load_image(url_with_tag)
-
+def open_new_window(url):
+    img = load_image(url)
     if img:
         new_window = Toplevel()
-        new_window.title("Картинка с котиком")
+        new_window.title("Cat Image")
         new_window.geometry("600x480")
         label = Label(new_window, image=img)
         label.image = img
         label.pack()
 
+def open_tagged_cat():
+    tag = tag_combobox.get()
+    url_with_tag = f'https://cataas.com/cat/{tag}' if tag else 'https://cataas.com/cat'
+    open_new_window(url_with_tag)
 
-def exit():
-    window.destroy()
-
+def open_random_cat():
+    url = 'https://cataas.com/cat'
+    open_new_window(url)
 
 window = Tk()
 window.title("Cats!")
 window.geometry("600x520")
-
-label = Label()
-label.pack()
-
 
 menu_bar = Menu(window)
 window.config(menu=menu_bar)
@@ -56,16 +52,14 @@ file_menu.add_separator()
 file_menu.add_command(label="Выход", command=exit)
 
 
-url = 'https://cataas.com/cat'
-
 tag_label = Label(text="Выбери тег")
 tag_label.pack()
 
 tag_combobox = ttk.Combobox(values=ALLOWED_TAGS)
 tag_combobox.pack()
 
-load_button = Button(text="Загрузить по тегу", command=open_new_window)
-load_button.pack()
+random_cat_button = Button(window, text="Случайный котик", command=open_random_cat)
+random_cat_button.pack(pady=10)
 
 
 window.mainloop()
