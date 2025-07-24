@@ -23,7 +23,7 @@ def open_new_window(url):
     img = load_image(url)
     if img:
         new_window = Toplevel()
-        new_window.title("Cat Image")
+        new_window.title("Изображение котика")
         new_window.geometry("600x480")
         label = Label(new_window, image=img)
         label.image = img
@@ -38,6 +38,10 @@ def open_random_cat():
     url = 'https://cataas.com/cat'
     open_new_window(url)
 
+def exit():
+    window.destroy()
+
+
 window = Tk()
 window.title("Cats!")
 window.geometry("600x520")
@@ -47,19 +51,25 @@ window.config(menu=menu_bar)
 
 file_menu = Menu(menu_bar, tearoff=0)
 menu_bar.add_cascade(label="Файл", menu=file_menu)
-file_menu.add_command(label="Загрузить фото", command=open_new_window)
+file_menu.add_command(label="Загрузить фото", command=open_tagged_cat)
 file_menu.add_separator()
 file_menu.add_command(label="Выход", command=exit)
 
 
-tag_label = Label(text="Выбери тег")
+tag_label = Label(text="Выберите тег")
 tag_label.pack()
 
 tag_combobox = ttk.Combobox(values=ALLOWED_TAGS)
 tag_combobox.pack()
 
-random_cat_button = Button(window, text="Случайный котик", command=open_random_cat)
-random_cat_button.pack(pady=10)
+update_button1 = Button(text="Обновить котика по тегу", command=open_tagged_cat)
+update_button1.pack()
+
+button_random_cat = Button(window, text="Случайный котик", command=open_random_cat)
+button_random_cat.pack(pady=10)
+
+update_button = Button(text="Обновить случайного котика", command=open_random_cat)
+update_button.pack()
 
 
 window.mainloop()
